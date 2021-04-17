@@ -27,6 +27,7 @@ export const formatLogItem = (time: string, level: string, msg: string, fields: 
 export const patchCodeBlocks = (source: string): [patched: string, patchCount: number] => {
 
     const blocks = findCodeBlocks(source);
+    console.log(`Blocks found: ${blocks.length}`)
     let patched = '';
     let logFmtMatches = 0
     let sourcePos = 0;
@@ -43,6 +44,7 @@ export const patchCodeBlocks = (source: string): [patched: string, patchCount: n
                 logFmtMatches++
                 return formatLogItem(time, level, msg, fields)
             } else {
+                console.log(`!LF: ${line}`)
                 // Did not include the usual log fields, probably not in logfmt, just skip it
                 return line
             }

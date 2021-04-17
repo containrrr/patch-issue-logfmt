@@ -10740,6 +10740,7 @@ const formatLogItem = (time, level, msg, fields) => {
 };
 const patchCodeBlocks = (source) => {
     const blocks = findCodeBlocks(source);
+    console.log(`Blocks found: ${blocks.length}`);
     let patched = '';
     let logFmtMatches = 0;
     let sourcePos = 0;
@@ -10756,6 +10757,7 @@ const patchCodeBlocks = (source) => {
                 return formatLogItem(time, level, msg, fields);
             }
             else {
+                console.log(`!LF: ${line}`);
                 // Did not include the usual log fields, probably not in logfmt, just skip it
                 return line;
             }
@@ -10786,6 +10788,9 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
     const authToken = core.getInput('repo-token');
     const octokit = github.getOctokit(authToken);
     const { owner, repo, number } = github.context.issue;
+    console.log(`Repo: ${owner}/${repo}`);
+    console.log(`Issue: ${number}`);
+    console.log('Retrieving issue details...');
     const response = yield octokit.request("GET /repos/{owner}/{repo}/issues/{issue_number}", {
         owner,
         repo,
@@ -10795,17 +10800,28 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         core.setFailed(`Failed to fetch issue data. Server responded with ${response.status}`);
     }
     const issue = response.data;
+    console.log(`Issue title: ${issue.title}`);
+    console.log(`Issue body:\n${issue.body}\n`);
+    console.log(`Patching issue body...`);
     const [patchedBody, patchCount] = patchCodeBlocks(issue.body);
     if (patchCount < 1) {
+        console.log('No lines where patched. Skipping update.');
         // No need to update the issue body, since we found no logfmt lines
         return;
     }
-    yield octokit.request('PATCH /repos/{owner}/{repo}/issues/{issue_number}', {
+    console.log(`Patch count: ${patchCount}`);
+    console.log(`Saving issue body...`);
+    const saveResponse = yield octokit.request('PATCH /repos/{owner}/{repo}/issues/{issue_number}', {
         owner,
         repo,
         issue_number: number,
         body: patchedBody,
     });
+    console.log('Response:');
+    console.log(saveResponse.data);
+    if (saveResponse.status != 200) {
+        core.setFailed(`Failed to save issue data. Server responded with ${response.status}`);
+    }
 }))().catch(error => core.setFailed(error.message));
 
 })();
