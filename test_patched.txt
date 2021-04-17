@@ -1,0 +1,33 @@
+**Describe the bug**
+Things are broken yo
+
+**To Reproduce**
+Start watchtower (version 1.2.1) and get output:
+
+```
+2021-04-17T15:07:23+02 [D]
+2021-04-17T15:07:23+02 [T] created Shoutrrr URL from legacy notifier
+                           URL: gotify://gotify.p1k.se/*******.*******?disabletls=No&priority=0&title=Watchtower+updates+on+Ketsueki
+2021-04-17T15:07:23+02 [I] Watchtower v0.0.0-unknown
+                           Using notifications: gotify
+                           Checking all containers (except explicitly disabled with label)
+                           Running a one time update.
+2021-04-17T15:07:23+02 [D] Checking containers for updated images
+2021-04-17T15:07:23+02 [D] Retrieving running containers
+```
+
+A docker compose file that is obviously not a log:
+
+```
+version: '3'
+
+services:
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+```
+
+**Expected behavior**
+Things to not be broken
