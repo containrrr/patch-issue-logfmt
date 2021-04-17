@@ -5,7 +5,7 @@ Things are broken yo
 Start watchtower (version 1.2.1) and get output:
 
 ```
-2021-04-17T15:07:23+02 [D]
+2021-04-17T15:07:23+02 [D] 
 2021-04-17T15:07:23+02 [T] created Shoutrrr URL from legacy notifier
                            URL: gotify://gotify.p1k.se/*******.*******?disabletls=No&priority=0&title=Watchtower+updates+on+Ketsueki
 2021-04-17T15:07:23+02 [I] Watchtower v0.0.0-unknown
