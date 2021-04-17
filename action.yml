@@ -2,9 +2,9 @@ name: 'Issue logfmt patcher'
 description: 'Finds logfmt log lines in issues and replaces them with formatted version that is easier to follow'
 inputs:
   repo-token:
-    description: 'The PAT to use for authorizing the edits (usually ${{ secrets.GITHUB_TOKEN }})'
+    description: 'The PAT to use for authorizing the edits'
     required: true
 
 runs:
-  using: 'node14'
+  using: 'node12'
   main: 'dist/index.js'
