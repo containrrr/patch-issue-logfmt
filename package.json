@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": " GitHub Action for patching logfmt logs in issues",
   "repository": "https://github.com/containrrr/logmt-patcher",
-  "main": "index.ts",
+  "main": "cli.ts",
   "scripts": {
     "build": "ncc build index.ts --license licenses.txt",
     "test": "jest"
