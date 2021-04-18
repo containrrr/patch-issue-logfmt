@@ -1,4 +1,6 @@
 name: 'Issue logfmt patcher'
+icon: align-left
+color: purple
 description: 'Finds logfmt log lines in issues and replaces them with formatted version that is easier to follow'
 inputs:
   repo-token:
