@@ -12,7 +12,7 @@ Finds logfmt log lines in issues and replaces them with formatted version that i
 ## Example usage
 
 ```yaml
-uses: containrrr/logfmt-patcher@v0.1
+uses: containrrr/patch-issue-logfmt@v0.3
 with:
   repo-token: ${{ secrets.GITHUB_TOKEN }}
 ```
