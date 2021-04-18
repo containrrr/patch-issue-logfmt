@@ -10714,6 +10714,8 @@ __nccwpck_require__.r(__webpack_exports__);
 var core = __nccwpck_require__(2186);
 // EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
 var github = __nccwpck_require__(5438);
+// EXTERNAL MODULE: external "fs"
+var external_fs_ = __nccwpck_require__(5747);
 // EXTERNAL MODULE: ./node_modules/logfmt/logfmt.js
 var logfmt = __nccwpck_require__(5578);
 // EXTERNAL MODULE: ./node_modules/string.prototype.matchall/index.js
@@ -10723,7 +10725,7 @@ var string_prototype_matchall_default = /*#__PURE__*/__nccwpck_require__.n(strin
 
 
 const findCodeBlocks = (source) => {
-    const pat = /(^```\n)(.+?)^```/gms;
+    const pat = /(^```\r?\n)(.+?)^```/gms;
     return Array.from(string_prototype_matchall_default()(source, pat), (m) => [m[2], m.index + m[1].length]);
 };
 const formatLogItem = (time, level, msg, fields) => {
@@ -10784,6 +10786,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 
 
 
+
 (() => __awaiter(void 0, void 0, void 0, function* () {
     const authToken = core.getInput('repo-token');
     const octokit = github.getOctokit(authToken);
@@ -10802,6 +10805,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
     const issue = response.data;
     console.log(`Issue title: ${issue.title}`);
     console.log(`Issue body:\n${issue.body}\n`);
+    external_fs_.writeFileSync('issue_body.txt', issue.body);
     console.log(`Patching issue body...`);
     const [patchedBody, patchCount] = patchCodeBlocks(issue.body);
     if (patchCount < 1) {
@@ -10822,7 +10826,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
     if (saveResponse.status != 200) {
         core.setFailed(`Failed to save issue data. Server responded with ${response.status}`);
     }
-}))().catch(error => core.setFailed(error.message));
+}))().catch(error => core.setFailed(`${error}`));
 
 })();
 

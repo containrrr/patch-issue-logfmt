@@ -2,7 +2,7 @@ import * as logfmt from 'logfmt';
 import matchAll from 'string.prototype.matchall'
 
 export const findCodeBlocks = (source: string): ([string, number])[] => {
-    const pat = /(^```\n)(.+?)^```/gms;
+    const pat = /(^```\r?\n)(.+?)^```/gms;
     return Array.from(matchAll(source, pat), (m: any) =>  [m[2], m.index + m[1].length]);
 }
 
