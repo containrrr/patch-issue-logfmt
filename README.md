@@ -1,4 +1,4 @@
-# logmt patcher
+# Github Issue Log Patcher
 
 GitHub Action for patching logfmt logs in issues.
 Finds logfmt log lines in issues and replaces them with formatted version that is easier to follow.
